@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/barcode/static/css/main.25a4d78b.css",
+    "main.js": "/barcode/static/js/main.4f81f13a.js",
+    "index.html": "/barcode/index.html",
+    "main.25a4d78b.css.map": "/barcode/static/css/main.25a4d78b.css.map",
+    "main.4f81f13a.js.map": "/barcode/static/js/main.4f81f13a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.25a4d78b.css",
+    "static/js/main.4f81f13a.js"
+  ]
+}
