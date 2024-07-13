@@ -1,18 +1,31 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Typography, Button, TextField } from "@mui/material";
 import Barcode from "react-barcode";
-import TextField from "@mui/material/TextField";
 import "./app.css";
-import { Typography } from "@mui/material";
+import Download from "./Download";
+import html2canvas from "html2canvas";
+import download from "downloadjs";
 
 function App() {
 	const [value, setValue] = useState("");
+	const barcodeRef = useRef(null);
 	const [config, setCol] = useState({
 		lineColor: "#000000",
 		background: "#ffffff",
 	});
+
+	const handleDownload = () => {
+		html2canvas(barcodeRef.current).then((canvas) => {
+			const dataUrl = canvas.toDataURL();
+			download(dataUrl, `barcode_${value.replace(" ", "_")}.png`);
+		});
+	};
+
 	return (
 		<div className="card">
-			<Typography variant="h4" className="heading">Barcode Generator</Typography>
+			<Typography variant="h4" className="heading">
+				Barcode Generator
+			</Typography>
 			<div
 				style={{
 					width: "100%",
@@ -23,8 +36,13 @@ function App() {
 					outline: "1px solid black",
 					borderRadius: ".5rem",
 				}}
+				ref={barcodeRef}
 			>
-				<Barcode value={value === "" ? "barcode" : value} {...config} className="code" />
+				<Barcode
+					value={value === "" ? "barcode" : value}
+					{...config}
+					className="code"
+				/>
 			</div>
 			<TextField
 				label="Enter Barcode Value"
@@ -53,6 +71,14 @@ function App() {
 					}}
 				/>
 			</div>
+			<Button
+				disabled={value === ""}
+				variant="contained"
+				endIcon={<Download />}
+				onClick={handleDownload}
+			>
+				Download
+			</Button>
 		</div>
 	);
 }
